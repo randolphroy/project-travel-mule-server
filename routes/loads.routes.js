@@ -13,9 +13,9 @@ router.get('/loads', (req, res, next) => {
 });
 
 router.get('/loads/:id', (req, res, next) => {
-    Loads.findById(req.params)
+    Loads.findById(req.params.id)
     .then (singleLoadDetail => {
-     res.status(200).json({ singleLoadDetail })
+     res.status(200).json(singleLoadDetail)
     })
     .catch (error => {
      console.log('Error while retrieving the load details:'. error);

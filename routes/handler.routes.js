@@ -104,7 +104,19 @@ router.post('/login', (req, res, next) => {
 //route to verify the token stores on the client 
 router.get('/verify', isAuthenticated, (req, res, next) => {
     console.log(`req.payload`, req.payload);
+    res.status(200).json(req.payload)
 }); 
+
+router.get('/handler/:id', (req, res, next) => {
+    Handler.findById(req.params)
+    .then (singleHandler => {
+     res.status(200).json({ singleHandler })
+    })
+    .catch (error => {
+     console.log('Error while retrieving the load details:'. error);
+     next(error);
+    })
+ });
 
 
 module.exports = router;
