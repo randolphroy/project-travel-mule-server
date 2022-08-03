@@ -32,9 +32,11 @@ const loadsSchema = new Schema(
       type: Schema.Types.ObjectId, 
       ref: "Handler"
     },
-    status: [
-        "AVAILABLE", "IN_TRANSIT", "DELIVERED"
-    ]
+    status: {
+      type: String,
+      enum : ['AVAILABLE','IN_TRANSIT','DELIVERED'],
+      default: 'AVAILABLE'
+  },
     
   }, { timestamps: true }
 );

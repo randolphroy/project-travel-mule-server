@@ -20,10 +20,10 @@ const handlerSchema = new Schema(
       type: String,
       required: true,
     },
-    currentLoads: {
+    currentLoads: [{
       type: Schema.Types.ObjectId, 
-      ref: "Loads"
-    },
+      ref: "Loads",
+    }],
     previousLoads: [{
       type: Schema.Types.ObjectId, 
       ref: "Loads"

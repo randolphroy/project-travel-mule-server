@@ -79,20 +79,26 @@ router.post('/login', (req, res, next) => {
             const passswordCorrect = bcrypt.compareSync(password, foundHandler.password);
 
             if (passswordCorrect) {
-                //deconstruct info from database
-                const { _id, firstName, lastName, email } = foundHandler;
-                //created object for the token
-                const payload = { _id, firstName, lastName, email };
-                //create and sign the token
-                const authToken = jwt.sign (
-                    payload,
-                    process.env.TOKEN_SECRET, 
-                    { algorithm: 'HS256', expiresIn: "8h" }
-                );
+                foundHandler
+                    .populate('currentLoads previousLoads')
+                    .then(populatedHandler => {
+                        //deconstruct info from database
+                            const { _id, firstName, lastName, email, currentLoads, previousLoads } = populatedHandler;
+                            //created object for the token
+                            const payload = { _id, firstName, lastName, email, currentLoads, previousLoads };
+                            //create and sign the token
+                            const authToken = jwt.sign (
+                                payload,
+                                process.env.TOKEN_SECRET, 
+                                { algorithm: 'HS256', expiresIn: "8h" }
+                            );
 
-            //now we send the token as a response
-            console.log(authToken)
-            res.status(200).json({ authToken: authToken});
+                        //now we send the token as a response
+                        console.log(authToken)
+                        res.status(200).json({ authToken: authToken});
+                    })
+                    .catch(err => res.status(500).json ({ message: "Internal Server Error"}));
+                
             }
         else {
             res.status(401).json({ message: "Unable to authenticate the handler" });
