@@ -3,10 +3,22 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the user model to whatever makes sense in this case
 const loadsSchema = new Schema(
   {
-    routes: {
+    senderInfo: {
+        type: String,
+        required: true
+    },
+    receiverInfo: {
+        type: String,
+        required: true
+    },
+    startAirport: {
       type: String,
       required: true
     },
+    endAirport: {
+        type: String,
+        required: true
+      },
     contents: {
       type: String,
       required: true

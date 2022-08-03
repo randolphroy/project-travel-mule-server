@@ -91,6 +91,7 @@ router.post('/login', (req, res, next) => {
                 );
 
             //now we send the token as a response
+            console.log(authToken)
             res.status(200).json({ authToken: authToken});
             }
         else {
@@ -102,7 +103,7 @@ router.post('/login', (req, res, next) => {
 
 //route to verify the token stores on the client 
 router.get('/verify', isAuthenticated, (req, res, next) => {
-    console.console.log(`req.payload`, req.payload);
+    console.log(`req.payload`, req.payload);
 }); 
 
 
